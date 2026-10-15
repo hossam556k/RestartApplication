@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 struct HomeView: View {
@@ -7,7 +6,7 @@ struct HomeView: View {
     @State private var isAnimating = false
 
     var body: some View {
-        VStack {
+        VStack(spacing: 20) {
             Spacer()
 
             ZStack {
@@ -31,9 +30,25 @@ struct HomeView: View {
             """)
                 .multilineTextAlignment(.center)
 
-            Text("Restart")
-                .font(.system(.title3, design: .rounded))
-                .fontWeight(.bold)
+            Spacer()
+
+            Button {
+                withAnimation {
+                    playSound(sound: "success", type: "m4a")
+                    isOnboardingViewActive = true
+                }
+            } label: {
+                Image(systemName: "arrow.triangle.2.circlepath.circle.fill")
+                    .imageScale(.large)
+
+                Text("Restart")
+                    .font(.system(.title3, design: .rounded))
+                    .fontWeight(.bold)
+            }
+            .buttonStyle(.borderedProminent)
+            .buttonBorderShape(.capsule)
+            .controlSize(.large)
+            .padding(.bottom, 20)
         }
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
